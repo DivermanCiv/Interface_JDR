@@ -1,23 +1,10 @@
 <?php
-require "config.php";
+session_start();
+include("header.php");
 
-
- ?>
-
- <!DOCTYPE html>
-<html lang='fr'>
-    <head>
-        <meta charset='UTF-8' name ="AdamDupuis"/>
-        <title>My Portfolio</title>
-        <link rel='stylesheet' href='styles.css'/>
-    </head>
-    <body>
-      <?php
-      if (2<5){
-        include("register.php");
-    }
-      else {
-
-      }
-       ?>
-    </body>
+if (isset($_SESSION["logged_in"]) && $_SESSION["logged_in"]===TRUE){
+  header ("location: welcome.php");
+  exit();
+}
+require_once "config.class.php";
+include("register.php");

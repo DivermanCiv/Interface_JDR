@@ -1,23 +1,30 @@
 <?php
+require ("core.class.php");
 
-$dsn = "mysql:host=localhost;dbname=interface_jdr";
-$bddusername="root";
-$bddpassword='root';
+class Config extends Core {
 
-try {$bdd = new PDO($dsn,$bddusername,$bddpassword);}
-catch (Exception $e){die('Erreur : '.$e->getMessage());}
+  protected $bdd;
 
+  public function check_if_exists($info_to_check, $where_to_check, $table){
+    $req = $this->bdd -> prepare ("SELECT * FROM $table WHERE $where_to_check = :x");
+    $req -> execute (array("x"=> $info_to_check));
+    return $req -> fetch();
+  }
 
-
-function check_if_exists($info_to_check, $where_to_check, $table){
-  $found = FALSE;
-  while ($value = $table -> fetch()) {
-    if ($info_to_check == $value[$where_to_check]){
-      $found = TRUE;
+  public function add_new_user($username, $mail, $password){
+    $req = $this->bdd -> prepare ('INSERT INTO user (user_username, user_mail, user_password, user_is_validated) VALUES (:username, :mail, :password, :is_validated)');
+    $req -> execute (array(
+      'username' => $username,
+      'mail' => $mail,
+      'password' => $password,
+      'is_validated' => 0
+    ));
+    if ($req){
+      echo "Compte créé avec succès ! Veuillez à présent vérifier votre boîte mail et valider votre compte [Fonctionnalité pas encore mise en place].";
+    }
+    else {
+      echo "Oups, il semble qu'une erreur se soit produite ! Veuillez réessayer plus tard.";
     }
   }
-  return $found;
+
 }
-
-
- ?>
