@@ -1,5 +1,4 @@
 <?php
-include("class/mygame_rule.class.php");
 
 class Character extends Game_Rule{
   public static $bdd;
@@ -7,8 +6,6 @@ class Character extends Game_Rule{
   public int $min_stat_value_allowed;
   public int $max_stat_value_allowed;
   public $error_message;
-  public $valid_message;
-  public $message_color;
 
   private string $char_name;
   private string $char_class;
@@ -24,6 +21,13 @@ class Character extends Game_Rule{
   private int $defend;
 
   private $char_skills;
+
+  public function __construct(){
+    $this->min_stat_value_allowed=3;
+    $this->max_stat_value_allowed=17;
+    $this->max_stat_points_allowed=55;
+    $this->number_of_skills_to_pick=2;
+  }
 
 
   public function check_character(){
@@ -50,6 +54,24 @@ class Character extends Game_Rule{
         return FALSE;
       }
 
+      elseif ($strength < $this->min_stat_value_allowed
+      || $agility < $this->min_stat_value_allowed
+      || $endurance < $this->min_stat_value_allowed
+      || $perception < $this->min_stat_value_allowed
+      || $intelligence < $this->min_stat_value_allowed)
+      {
+        $this->error_message = "L'une de vos statistiques est inférieure à la valeur minimum demandée (".$this->min_stat_value_allowed.").";
+        return FALSE;
+      }
+      elseif ($strength > $this->max_stat_value_allowed
+      ||$agility > $this->max_stat_value_allowed
+      ||$endurance > $this->max_stat_value_allowed
+      ||$perception > $this->max_stat_value_allowed
+      ||$intelligence > $this->max_stat_value_allowed)
+      {
+        $this->error_message = "L'une de vos statistiques est supérieure à la valeur maximum demandée (".$this->max_stat_value_allowed.").";
+        return FALSE;
+      }
       else
       {
         //vérification que le nombre de compétences choisi est valide
@@ -76,34 +98,19 @@ class Character extends Game_Rule{
           $this->error_message = "Vous n'avez pas selectionné assez de compétences ! Vous devez en sélectionner ".$this->number_of_skills_to_pick.".";
           return FALSE;
         }
-
-        elseif ($total_stat_points < $this->max_stat_points_allowed)
+        else
         {
-          $this->valid_message = "Vous n'avez pas distribué tout vos points, êtes vous sûr de vouloir faire cela ?";
-          $this->message_color = "orange";
-          $this->calculate_secondary_stats();
-          return TRUE;
-        }
-        else {
-          $this->valid_message = "Personnage validé ! ";
-          $this->message_color = "green";
-          $this->calculate_secondary_stats();
-          return TRUE;
-        }
+        return TRUE;
+        $this->PV=$strength+$endurance;
+        $this->moral=$endurance+$intelligence;
+        $this->close_combat = $strength+$agility;
+        $this->distance_combat = $intelligence+$perception;
+        $this->defend = $agility+$perception;
 
         }
       }
     }
   }
-
-  public function calculate_secondary_stats(){
-    $this->PV=$this->strength+$this->endurance;
-    $this->moral=$this->endurance+$this->intelligence;
-    $this->close_combat = $this->strength+$this->agility;
-    $this->distance_combat = $this->intelligence+$this->perception;
-    $this->defend = $this->agility+$this->perception;
-  }
-
 
 
   }
