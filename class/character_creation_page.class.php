@@ -1,5 +1,5 @@
 <?php
-
+require_once("mygame_rule.class.php");
 class Character_Creation_Page extends Game_Rule {
   public static $bdd;
 

@@ -1,7 +1,6 @@
 <?php
 session_start();
 include("header.php");
-include("class/mygame_rule.class.php");
 include("class/character_creation_page.class.php");
 include("class/character.class.php");
 
@@ -64,7 +63,7 @@ $somme_points_max=$this_game->max_stat_points_allowed;
       }
       else{
 
-// Le message valide n'est soi disant pas défini.... raison inconnue. 
+// Le message valide n'est soi disant pas défini.... raison inconnue.
         ?>
         <p style='color:<?= $character->message_color; ?>;'><?= $character->valid_message; ?></p>
 
