@@ -3,7 +3,7 @@ require_once("mygame_rule.class.php");
 class Character_Creation_Page extends Game_Rule {
   public static $bdd;
 
-  public int $min_stat_value_allowed;
+  public $min_stat_value_allowed;
 
   public function __construct(){
     Core::__construct();
@@ -69,11 +69,13 @@ class Character_Creation_Page extends Game_Rule {
       {
         $this_value=$_POST[$value["stat_name"]];
       }
-      else {$this_value=$min_stat_value_allowed;}
+      else {$this_value=0;}
       echo "<label for=".$value["stat_name"].">".$value["stat_name"]."</label>";
-      echo "<input type=\"number\" id=\"stat".$i."\" onchange = \"document.getElementById(\"stat".$i."\").innerHTML = this.value; total_stat_points();\" name=".$value["stat_name"]." value=\"".$this_value."\" min = \"".$min_stat_value_allowed."\" max=\"".$max_stat_value_allowed."\"/>";
+      echo "<input type='number' class = 'stat_value' id='stat".$i."' name=".$value["stat_name"]." value='".$this_value."' />";
       echo "<p>".$value["stat_description"]."</p>";
+      //min = '".$min_stat_value_allowed."' max='".$max_stat_value_allowed."'
     }
+
     return $i;
   }
 }

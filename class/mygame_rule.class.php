@@ -4,10 +4,10 @@ class Game_Rule extends Core {
 
   public static $bdd;
 
-  public int $min_stat_value_allowed;
-  public int $max_stat_value_allowed;
-  public int $max_stat_points_allowed;
-  public int $number_of_skills_to_pick;
+  public $min_stat_value_allowed;
+  public $max_stat_value_allowed;
+  public $max_stat_points_allowed;
+  public $number_of_skills_to_pick;
 
 
   public function __construct(){

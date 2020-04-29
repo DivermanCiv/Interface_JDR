@@ -4,25 +4,25 @@ require_once("mygame_rule.class.php");
 
 class Character extends Game_Rule{
   public static $bdd;
-  public int $max_stat_points_allowed;
-  public int $min_stat_value_allowed;
-  public int $max_stat_value_allowed;
+  public $max_stat_points_allowed;
+  public $min_stat_value_allowed;
+  public $max_stat_value_allowed;
   public $error_message;
   public $valid_message;
   public $message_color;
 
-  private string $char_name;
-  private string $char_class;
-  private int $strength;
-  private int $agility;
-  private int $endurance;
-  private int $perception;
-  private int $intelligence;
-  private int $PV;
-  private int $moral;
-  private int $close_combat;
-  private int $distance_combat;
-  private int $defend;
+  private $char_name;
+  private $char_class;
+  private $strength;
+  private $agility;
+  private $endurance;
+  private $perception;
+  private $intelligence;
+  private $PV;
+  private $moral;
+  private $close_combat;
+  private $distance_combat;
+  private $defend;
 
   private $char_skills;
 

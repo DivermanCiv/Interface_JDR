@@ -1,7 +1,8 @@
 <?php
-session_start();
+include("class/core.class.php");
 include("header.php");
-
+$check_login = new Core;
+$check_if_logged= $check_login->check_login();
 ?>
 
 <body>

@@ -1,5 +1,7 @@
 <?php
-session_start();
+include("class/core.class.php");
+$check_login = new Core;
+$check_if_logged= $check_login->check_login();
 include("header.php");
 include("class/character_creation_page.class.php");
 include("class/character.class.php");
@@ -15,7 +17,7 @@ $somme_points_max=$this_game->max_stat_points_allowed;
 
 ?>
 
-
+<script src="js/jquery-3.5.0.min.js"></script>
 
 <body>
   <h1>Création de personnage</h1>
@@ -31,7 +33,9 @@ $somme_points_max=$this_game->max_stat_points_allowed;
     <h2>Statistiques</h2>
     <p> Valeur minimum autorisée : <?= $valeur_min;?></p>
     <p> Valeur maximum autorisée : <?=$valeur_max;?></p>
-    <p> Points répartis : <span id="total_points">0</span> / <?=$somme_points_max;?></p>
+    <p> Points à répartir : <span id="total_points"></span></p>
+    <p style="color:red" id="too_much_points_error">Attention ! Vous avez attribué trop de points !</p>
+    <p style="color:red" id="non_valid_stat_value">Attention ! Une valeur rentrée est non valide !</p>
     <?php $list_stat = $list -> list_of_stats($valeur_min, $valeur_max); ?>
 
     <!-- Liste des compétences à choisir -->
@@ -62,8 +66,6 @@ $somme_points_max=$this_game->max_stat_points_allowed;
         <?php
       }
       else{
-
-// Le message valide n'est soi disant pas défini.... raison inconnue.
         ?>
         <p style='color:<?= $character->message_color; ?>;'><?= $character->valid_message; ?></p>
 
@@ -89,27 +91,5 @@ $somme_points_max=$this_game->max_stat_points_allowed;
 
   <a href="welcome.php">Retour</a>
 
-  <script>
-  // améliorer cette fonction en ajoutant un description de la classe (contenue dans la table class, class_description) avec AJAX (XMLHttpRequest)
-  //rien ne semble fonctionner, à retravailler...
-
-  //Fonction affichant la classe choisie
-    function desc_class(){
-      let nom_classe = document.getElementById("char_class").value;
-      document.getElementById("class_desc").innerHTML = nom_classe;
-    }
-
-//Fonction sensée afficher le total de points dépensés sur les statistiques
-    function total_stat_points(){
-      let number_of_stats = <?php $list_stat; ?>;
-      let total = 0;
-      for (let i = 1; i < number_of_stats+1; i++) {
-        let id = "stat"+i;
-        total += parseInt(document.getElementById(id).value);
-      }
-      document.getElementById("total_points").innerHTML = total;
-    }
-
-
-  </script>
+<script src="js/character_creation.js"></script>
 </body>

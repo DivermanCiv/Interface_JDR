@@ -12,4 +12,12 @@ class Core {
     try {self::$bdd;}
     catch (Exception $e){die('Erreur : '.$e->getMessage());}
   }
+
+  public function check_login(){
+    session_start();
+    if (empty($_SESSION["logged_in"])){
+      header ("location: index.php");
+      exit();
+    }
+  }
 }
