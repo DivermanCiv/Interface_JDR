@@ -27,6 +27,8 @@ $somme_points_max=$this_game->max_stat_points_allowed;
     <input type="text" name="char_name" value="<?php if(isset($_POST["char_name"])){echo $_POST["char_name"];}?>">
 
     <?php $list_classes = $list -> list_of_classes(); ?>
+    <p id="class_desc"></p>
+    <p id="class_comp"></p>
 
 
     <!-- Liste des statistiques à choisir  -->

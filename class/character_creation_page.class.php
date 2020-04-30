@@ -20,7 +20,7 @@ class Character_Creation_Page extends Game_Rule {
     $req = Core::$bdd->prepare("SELECT * FROM class");
     $req->execute(array());
     echo "<label for='char_class'>Métier :</label>";
-    echo "<select id='char_class' onchange='desc_class()' name='char_class'>";
+    echo "<select id='char_class' name='char_class'>";
     foreach ($req as $value){
       if(isset($_POST["char_class"])){
         if ($_POST["char_class"] == $value["class_name"]){
@@ -28,10 +28,9 @@ class Character_Creation_Page extends Game_Rule {
         }
         else{$selected="";}
       }
-      echo "<option value=".$value["class_name"]." $selected>".$value["class_name"]."</option>";
+      echo "<option value='".$value["class_name"]."' $selected>".$value["class_name"]."</option>";
     }
     echo "</select>";
-    echo "<p id='class_desc'></p>";
   }
 
   public function list_of_skills_by($something){
@@ -55,7 +54,7 @@ class Character_Creation_Page extends Game_Rule {
       else{$selected="";}
       echo "<br>";
       echo "<input type='checkbox' name=".$value['skill_id']." $selected >";
-      echo "<label for=".$value['skill_id'].">".$value['skill_name']. " : " . $value['skill_description'].". ". $value['skill_bonus']."</label>";
+      echo "<label for='".$value['skill_id']."'>".$value['skill_name']. " : " . $value['skill_description'].". ". $value['skill_bonus']."</label>";
     }
   }
 
@@ -69,7 +68,7 @@ class Character_Creation_Page extends Game_Rule {
       {
         $this_value=$_POST[$value["stat_name"]];
       }
-      else {$this_value=0;}
+      else {$this_value=$min_stat_value_allowed;}
       echo "<label for=".$value["stat_name"].">".$value["stat_name"]."</label>";
       echo "<input type='number' class = 'stat_value' id='stat".$i."' name=".$value["stat_name"]." value='".$this_value."' />";
       echo "<p>".$value["stat_description"]."</p>";
