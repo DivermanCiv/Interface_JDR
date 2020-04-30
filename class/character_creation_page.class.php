@@ -53,7 +53,7 @@ class Character_Creation_Page extends Game_Rule {
       if(isset($_POST[$value['skill_id']])){$selected ="checked";}
       else{$selected="";}
       echo "<br>";
-      echo "<input type='checkbox' name=".$value['skill_id']." $selected >";
+      echo "<input type='checkbox' class='skills_to_select' name=".$value['skill_id']." $selected >";
       echo "<label for='".$value['skill_id']."'>".$value['skill_name']. " : " . $value['skill_description'].". ". $value['skill_bonus']."</label>";
     }
   }

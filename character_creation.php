@@ -42,7 +42,8 @@ $somme_points_max=$this_game->max_stat_points_allowed;
 
     <!-- Liste des compétences à choisir -->
     <h2>Compétences</h2>
-    <p>Choisissez deux compétences :  </p>
+    <fieldset>
+    <legend>Choisissez deux compétences : ( <span id="number_of_skills_picked"></span> / <span id="test"><?= $character->number_of_skills_to_pick ?></span>)</legend>
     <h3>Compétences de Combat : </h3>
     <?php $list_combat = $list -> display_list_of_skills_by_type("Combat"); ?>
     <h3>Compétences de Déplacement : </h3>
@@ -50,6 +51,7 @@ $somme_points_max=$this_game->max_stat_points_allowed;
     <h3>Compétences de Survie : </h3>
     <?php  $list_survie = $list -> display_list_of_skills_by_type("Survie");    ?>
     <br>
+  </fieldset>
 
 
 
@@ -69,7 +71,7 @@ $somme_points_max=$this_game->max_stat_points_allowed;
       }
       else{
         ?>
-        <p style='color:<?= $character->message_color; ?>;'><?= $character->valid_message; ?></p>
+        <p id="valid_message" style='color:<?= $character->message_color; ?>;'><?= $character->valid_message; ?></p>
 
         <form method="post" action="character_creation.php#save_button">
           <button id="save_button" name="save_character">Enregistrer personnage</button>
