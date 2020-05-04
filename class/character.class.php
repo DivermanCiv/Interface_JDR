@@ -113,14 +113,7 @@ class Character extends Game_Rule{
     $this->defend = round(($this->agility+$this->perception)/2);
   }
 
-  public function give_me_id($table, $index_to_search, $value_to_search){
-    $config = new Config;
-    $search = $config->check_if_exists($value_to_search, $index_to_search, $table);
-    if (!$search){
-      return NULL;
-    }
-    else {return $search[0][0]; }
-  }
+
 
   public function display_character(){
     $req = Core::$bdd->prepare("SELECT * FROM skill WHERE skill_type = :x");
@@ -151,9 +144,10 @@ class Character extends Game_Rule{
 
 
   public function save_character(){
+    $config = new Config;
     //récuperer l'info de l'id de la classe utilisée
-    $user_id = $this->give_me_id("user", "user_username", $_SESSION["username"]);
-    $class_id = $this->give_me_id("class", "class_name", $this->char_class);
+    $user_id = $config->give_me_id("user", "user_username", $_SESSION["username"]);
+    $class_id = $config->give_me_id("class", "class_name", $this->char_class);
 
     $req = Core::$bdd->prepare("INSERT INTO `character` (character_name, character_background, user_id, class_id) VALUES (:char_name, :char_bg, :user, :class)");
     $req->execute(array(
@@ -167,16 +161,16 @@ class Character extends Game_Rule{
     $last_id = Core::$bdd->lastInsertId();
 
     $array_of_stats = array(
-      $this->give_me_id("stat", "stat_name", "Force") => $this->strength,
-        $this->give_me_id("stat", "stat_name", "Agilité") => $this->agility,
-      $this->give_me_id("stat", "stat_name", "Endurance") => $this->endurance,
-      $this->give_me_id("stat", "stat_name", "Perception") => $this->perception,
-      $this->give_me_id("stat", "stat_name", "Intelligence") => $this->intelligence,
-      $this->give_me_id("stat", "stat_name", "Tir et Lancer") => $this->distance_combat,
-      $this->give_me_id("stat", "stat_name", "Combat Rapproché") => $this->close_combat,
-      $this->give_me_id("stat", "stat_name", "Contrer et Esquiver") => $this->defend,
-      $this->give_me_id("stat", "stat_name", "PV") => $this->PV,
-      $this->give_me_id("stat", "stat_name", "Moral") => $this->moral,
+      $config->give_me_id("stat", "stat_name", "Force") => $this->strength,
+        $config->give_me_id("stat", "stat_name", "Agilité") => $this->agility,
+      $config->give_me_id("stat", "stat_name", "Endurance") => $this->endurance,
+      $config->give_me_id("stat", "stat_name", "Perception") => $this->perception,
+      $config->give_me_id("stat", "stat_name", "Intelligence") => $this->intelligence,
+      $config->give_me_id("stat", "stat_name", "Tir et Lancer") => $this->distance_combat,
+      $config->give_me_id("stat", "stat_name", "Combat Rapproché") => $this->close_combat,
+      $config->give_me_id("stat", "stat_name", "Contrer et Esquiver") => $this->defend,
+      $config->give_me_id("stat", "stat_name", "PV") => $this->PV,
+      $config->give_me_id("stat", "stat_name", "Moral") => $this->moral,
     );
 
     $req2 = Core::$bdd->prepare("INSERT INTO `character_stat`(character_id, stat_id, character_stat_max_value, character_stat_current_value) VALUES (:char_id, :stat_id, :char_stat_max, :char_stat_max)");
@@ -191,11 +185,11 @@ class Character extends Game_Rule{
 
     //récupérer les skills et les id
     foreach ($this->char_skills as $value){
-      $array_of_skills[]= $this->give_me_id("skill", "skill_name", $value);
+      $array_of_skills[]= $config->give_me_id("skill", "skill_name", $value);
     }
 
     //récupérer le skill de classe de perso
-    $array_of_skills[] = $this->give_me_id("skill", "skill_type", $this->char_class);
+    $array_of_skills[] = $config->give_me_id("skill", "skill_type", $this->char_class);
 
 
     $req3 = Core::$bdd->prepare("INSERT INTO master (character_id, skill_id) VALUES (:char_id, :skill_id)");
@@ -207,6 +201,8 @@ class Character extends Game_Rule{
       ));
     };
   }
+
+  
 
 }
   ?>

@@ -5,26 +5,29 @@
   $('#total_points').html(total);
 
 
+
 //Fonction affichant la classe choisie
 function display_class_specs(){
   $.get("ajax/api.php").then(function(dataServeur){
     var classe = $("#char_class").val();
     var desc_to_read;
     var comp_to_read;
-    dataServeur.data.forEach((item, i) => {
-        if (classe == dataServeur.data[i].class_name){
+    dataServeur.class.forEach((item, i) => {
+        if (classe == dataServeur.class[i].class_name){
           desc_to_read = i;
         };
-        if (classe == dataServeur.data[i].skill_type){
+    });
+    dataServeur.skill.forEach((item, i) => {
+        if (classe == dataServeur.skill[i].skill_type){
           comp_to_read = i;
         };
     });
-    $("#class_desc").html(dataServeur.data[desc_to_read].class_description);
+    $("#class_desc").html(dataServeur.class[desc_to_read].class_description);
     var bonus;
-    if ((dataServeur.data[comp_to_read].skill_bonus)){
-      bonus="("+dataServeur.data[comp_to_read].skill_bonus+" au jet de dé)";
+    if ((dataServeur.skill[comp_to_read].skill_bonus)){
+      bonus="("+dataServeur.skill[comp_to_read].skill_bonus+" au jet de dé)";
     } else {bonus = "";}
-    $('#class_comp').html("<strong>"+dataServeur.data[comp_to_read].skill_name+ "</strong> : "+dataServeur.data[comp_to_read].skill_description+" "+bonus);
+    $('#class_comp').html("<strong>"+dataServeur.skill[comp_to_read].skill_name+ "</strong> : "+dataServeur.skill[comp_to_read].skill_description+" "+bonus);
   });
 }
 
@@ -84,12 +87,12 @@ function display_class_specs(){
   $(".stat_value").change(function(){
     total_stat_points();
 
+
   });
 
   $("#char_class").change(function(){
    display_class_specs();
  });
-
 
 
 

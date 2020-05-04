@@ -11,6 +11,14 @@ class Config extends Core{
     return $req -> fetchAll();
   }
 
+  public function give_me_id($table, $index_to_search, $value_to_search){
+    $search = check_if_exists($value_to_search, $index_to_search, $table);
+    if (!$search){
+      return NULL;
+    }
+    else {return $search[0][0]; }
+  }
+
   public function add_new_user($username, $mail, $password){
     $req = Core::$bdd -> prepare ('INSERT INTO user (user_username, user_mail, user_password, user_is_validated) VALUES (:username, :mail, :password, :is_validated)');
     $req -> execute (array(
