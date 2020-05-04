@@ -1,5 +1,5 @@
 <?php
-require("core.class.php");
+require_once("core.class.php");
 
 class Config extends Core{
 
@@ -8,7 +8,7 @@ class Config extends Core{
   public function check_if_exists($info_to_check, $where_to_check, $table){
     $req = Core::$bdd -> prepare ("SELECT * FROM $table WHERE $where_to_check = :x");
     $req -> execute (array("x"=> $info_to_check));
-    return $req -> fetch();
+    return $req -> fetchAll();
   }
 
   public function add_new_user($username, $mail, $password){
