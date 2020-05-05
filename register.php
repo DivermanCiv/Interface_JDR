@@ -69,13 +69,13 @@ if (isset($_POST["login"])){
       $user = $check_username;
     }
     $password = trim($_POST["password"]);
-    if (!password_verify($password, $user["user_password"])){
+    if (!password_verify($password, $user[0]["user_password"])){
       $error_message= "Mot de passe invalide";
     }
     else{
       session_start();
       $_SESSION["logged_in"] = TRUE;
-      $_SESSION["username"] = $user["user_username"];
+      $_SESSION["username"] = $user[0]["user_username"];
       header ('location: http://localhost/interface_JDR/index.php');
       exit();
 

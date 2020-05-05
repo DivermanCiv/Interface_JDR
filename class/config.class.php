@@ -8,11 +8,11 @@ class Config extends Core{
   public function check_if_exists($info_to_check, $where_to_check, $table){
     $req = Core::$bdd -> prepare ("SELECT * FROM $table WHERE $where_to_check = :x");
     $req -> execute (array("x"=> $info_to_check));
-    return $req -> fetchAll();
+    return $req->fetchAll();
   }
 
   public function give_me_id($table, $index_to_search, $value_to_search){
-    $search = check_if_exists($value_to_search, $index_to_search, $table);
+    $search = $this->check_if_exists($value_to_search, $index_to_search, $table);
     if (!$search){
       return NULL;
     }

@@ -9,7 +9,7 @@ $req->execute(array());
 $data["user"] = $req->fetchAll(PDO::FETCH_ASSOC);
 
 function add_to_api_data($table){
-  $req = Core::$bdd->prepare("SELECT * FROM $table");
+  $req = Core::$bdd->prepare("SELECT * FROM `$table`");
   $req->execute(array());
 
   $data[$table] = $req->fetchAll(PDO::FETCH_ASSOC);
@@ -21,10 +21,12 @@ $data["class"]=add_to_api_data('class');
 $data["character"]=add_to_api_data("character");
 $data["character_stat"]=add_to_api_data("character_stat");
 $data["master"]=add_to_api_data("master");
+$data["stat"]=add_to_api_data("stat");
+
 
 
 $myJSON = json_encode($data);
 
 echo $myJSON;
- 
+
  ?>
