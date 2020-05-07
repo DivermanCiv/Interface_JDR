@@ -86,14 +86,11 @@ function display_class_specs(){
 
   $(".stat_value").change(function(){
     total_stat_points();
-
-
   });
 
   $("#char_class").change(function(){
    display_class_specs();
- });
-
+  });
 
 
 
