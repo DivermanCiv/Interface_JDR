@@ -15,7 +15,7 @@ $actual_user_id = $conf->give_me_id("user", "user_username", $_SESSION["username
 
 <br>
 <a href="character_creation.php">Créer un personnage</a>
-<a href="game_creation.php">Créer une partie</a>
+<!-- <a href="game_creation.php">Créer une partie</a> -->
 <a href="logout.php">Se déconnecter</a>
 <br><span>-------------</span><br>
 <h2 id="my_characters">Mes personnages</h2>

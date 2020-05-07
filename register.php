@@ -76,7 +76,8 @@ if (isset($_POST["login"])){
       session_start();
       $_SESSION["logged_in"] = TRUE;
       $_SESSION["username"] = $user[0]["user_username"];
-      header ('location: http://localhost/interface_JDR/index.php');
+
+      header ("location: index.php");
       exit();
 
     }

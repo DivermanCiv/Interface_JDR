@@ -12,7 +12,7 @@ function display_character_name(){
     dataServeur.character.forEach((item, i) =>{
       if ($("#actual_user_id").html() == dataServeur.character[i].user_id ){
         newLine = $('<li></li>');
-        newLine.html(dataServeur.character[i].character_name);
+        newLine.html(dataServeur.character[i].character_name+" <a href='delete_character.php?char_id="+dataServeur.character[i].character_id+"'>Supprimer</a>");
         newLine.click(function(){
           $('#selected_character_name').html("");
           $('#selected_character_class').html("");
@@ -78,7 +78,7 @@ function display_character_info(character_id, char_class_id, char_background_tex
             if (!skill_bonus){skill_bonus = "Aucun.";}
             newSkill = $('<li></li>');
             newSkill.html("<strong>"+skill_name+" : </strong>"+skill_desc+" Bonus : "+skill_bonus);
-            char_skills.append(newSkill); 
+            char_skills.append(newSkill);
           }
         });
       }

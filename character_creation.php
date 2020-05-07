@@ -18,7 +18,7 @@ $valeur_max=$this_game->max_stat_value_allowed;
 
 <script src="js/jquery-3.5.0.min.js"></script>
 
-<body>
+<body id="character_creation_page_body">
   <h1>Création de personnage</h1>
   <h2>Informations de base</h2>
   <form action="character_creation.php#create_button" method="post">
@@ -90,8 +90,7 @@ $valeur_max=$this_game->max_stat_value_allowed;
     {
       $check = $character->check_character();
       $save = $character -> save_character();
-      if ($save){echo "Personnage sauvegardé !";}
-
+      echo "<p style='color:green'>Personnage enregistré !</p>";
     }
 
 

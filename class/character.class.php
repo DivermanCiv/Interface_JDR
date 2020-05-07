@@ -200,9 +200,25 @@ class Character extends Game_Rule{
         'skill_id' => $value
       ));
     };
+
   }
 
-  
+  public function delete_character($char_id, $user_id){
+    $req = Core::$bdd -> prepare("SELECT * FROM `character` WHERE user_id = ? AND character_id = ?");
+    $req -> execute(array($user_id, $char_id));
+    $character = $req ->fetch();
+    if (!$character){
+      echo "Il semble que vous tentiez de supprimer un personnage qui ne vous appartient pas. Honte à vous !";
+    }
+    else {
+      $req = Core::$bdd -> prepare ("DELETE FROM `character` WHERE character_id = ?");
+      $req->execute(array($char_id));
+      echo "Personnage supprimé !";
+    }
+    sleep(3);
+    header("location: welcome.php");
+    exit();
+  }
 
 }
   ?>
